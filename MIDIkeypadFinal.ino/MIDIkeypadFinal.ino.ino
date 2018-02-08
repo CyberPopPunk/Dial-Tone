@@ -76,7 +76,7 @@ void loop() {
   }
 
   if (sPotVal != sPotLastVal) {
-    potMidi(85, sPotVal);
+    potMidi(87, sPotVal);
     sPotLastVal = sPotVal;
     delay(10);
     //Serial.print("Side Pot: ");
