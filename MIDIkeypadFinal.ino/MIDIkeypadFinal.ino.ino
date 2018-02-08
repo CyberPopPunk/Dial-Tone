@@ -17,8 +17,6 @@ boolean octDwn = LOW;
 boolean octUp = LOW;
 boolean scaleSwitch = LOW;
 
-
-
 int leftPot = A4,
     rightPot = A3,
     sidePot = A2,
@@ -28,8 +26,6 @@ int leftPot = A4,
     rPotLastVal = 0,
     sPotVal = 0,
     sPotLastVal = 0;
-
-
 
 //************KEYPAD******************//
 #include <Keypad.h>
@@ -49,8 +45,8 @@ Keypad numberPad = Keypad( makeKeymap(keys), rowPins, colPins, ROWS, COLS );
 
 
 void setup() {
-  Serial.begin(9600);
-  //MIDI.begin(1);
+  //Serial.begin(9600);
+  MIDI.begin(1);
   pinMode(octUp, INPUT);
   pinMode(octDwn, INPUT);
   pinMode(scaleSwitch, INPUT);
@@ -65,14 +61,14 @@ void loop() {
   sPotVal = analogRead(sidePot) / 8;
 
   if (lPotVal != lPotLastVal) {
-    //potMidi(85, lPotVal);
+    potMidi(85, lPotVal);
     lPotLastVal = lPotVal;
     delay(10);
     //Serial.print("left Pot: ");
     //Serial.println(lPotVal);
   }
   if (rPotVal != rPotLastVal) {
-    //potMidi(86, rPotVal);
+    potMidi(86, rPotVal);
     rPotLastVal = rPotVal;
     delay(10);
     //Serial.print("Right Pot: ");
@@ -80,11 +76,11 @@ void loop() {
   }
 
   if (sPotVal != sPotLastVal) {
-    //potMidi(85, sPotVal);
+    potMidi(85, sPotVal);
     sPotLastVal = sPotVal;
     delay(10);
-    Serial.print("Side Pot: ");
-    Serial.println(sPotVal);
+    //Serial.print("Side Pot: ");
+    //Serial.println(sPotVal);
   }
 
   ////////////////////////////KEYPAD READING AND TRANSMISSION
@@ -95,53 +91,54 @@ void loop() {
       case PRESSED:
         switch (key) {
           case '1':
-            //MIDI.sendNoteOn(60, 127, 1);
+            MIDI.sendNoteOn(60, 127, 1);
             delay(500);
-            //MIDI.sendNoteOff(60, 0, 1);
+            MIDI.sendNoteOff(60, 0, 1);
             Serial.println("sent C");
             break;
           case '2':
             notes(61);
-            Serial.println("sent Db");
+            //Serial.println("sent Db");
             break;
           case '3':
             notes(62);
-            Serial.println("sent D");
+            //Serial.println("sent D");
             break;
           case '4':
             notes(63);
-            Serial.println("sent Eb");
+            //Serial.println("sent Eb");
+            break;
           case '5':
             notes(64);
-            Serial.println("sent E");
+            //Serial.println("sent E");
             break;
           case '6':
             notes(65);
-            Serial.println("Sent F");
+            //Serial.println("Sent F");
             break;
           case '7':
             notes(66);
-            Serial.println("sent F#");
+            //Serial.println("sent F#");
             break;
           case '8':
             notes(67);
-            Serial.println("sent G");
+            //Serial.println("sent G");
             break;
           case '9':
             notes(68);
-            Serial.print("sent Ab");
+            //Serial.print("sent Ab");
             break;
           case '*':
             notes(69);
-            Serial.print("sent A");
+            //Serial.print("sent A");
             break;
           case '0':
             notes(70);
-            Serial.print("sent Bb");
+            //Serial.print("sent Bb");
             break;
           case '#':
             notes(71);
-            Serial.print("sent B");
+            //Serial.print("sent B");
             break;
         }
     }
@@ -151,53 +148,53 @@ void loop() {
       case PRESSED:
         switch (key) {
           case '1':
-            //MIDI.sendNoteOn(60, 127, 1);
+            MIDI.sendNoteOn(60, 127, 1);
             delay(500);
-            //MIDI.sendNoteOff(60, 0, 1);
-            Serial.println("sent C");
+            MIDI.sendNoteOff(60, 0, 1);
+            //Serial.println("sent C");
             break;
           case '2':
             notes(62);
-            Serial.println("sent D");
+            //Serial.println("sent D");
             break;
           case '3':
             notes(63);
-            Serial.println("sent D#");
+            //Serial.println("sent D#");
             break;
           case '4':
             notes(64);
-            Serial.println("sent E");
+            //Serial.println("sent E");
           case '5':
             notes(67);
-            Serial.println("sent G");
+            //Serial.println("sent G");
             break;
           case '6':
             notes(69);
-            Serial.println("Sent A");
+            //Serial.println("Sent A");
             break;
           case '7':
             notes(72);
-            Serial.println("sent C(oct)");
+            //Serial.println("sent C(oct)");
             break;
           case '8':
             notes(74);
-            Serial.println("sent D(oct)");
+            //Serial.println("sent D(oct)");
             break;
           case '9':
             notes(75);
-            Serial.print("sent Eb(oct)");
+            //Serial.print("sent Eb(oct)");
             break;
           case '*':
             notes(76);
-            Serial.print("sent E(oct)");
+            //Serial.print("sent E(oct)");
             break;
           case '0':
             notes(79);
-            Serial.print("sent G(oct)");
+            //Serial.print("sent G(oct)");
             break;
           case '#':
             notes(81);
-            Serial.print("sent A(oct)");
+            //Serial.print("sent A(oct)");
             break;
         }
     }
